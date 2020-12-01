@@ -1,0 +1,41 @@
+---
+title: "PCA and R clearly explained"
+author: "Jeff Grayum"
+date: "11/30/2020"
+output: html_document
+editor_options: 
+  chunk_output_type: console
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Loading libraries and packages.
+```{r}
+library(tidyverse)
+library(ggthemes)
+library(tvthemes)
+```
+
+First, let's make a matrix of fake genetic data.
+```{r}
+gene_matrix <- matrix(nrow = 100, ncol = 10)
+
+colnames(gene_matrix) <- c(
+  paste("wt", 1:5, sep = ""),
+  paste("ko", 1:5, sep = ""))
+
+rownames(gene_matrix) <- paste("gene", 1:100, sep = "")
+
+for (i in 1:100) {
+  wt.values <- rpois(5, lambda = sample(x = 10:1000, size = 1))
+  ko.values <- rpois(5, lambda = sample(x = 10:1000, size = 1))
+  
+  gene_matrix[i,] <- c(wt.values, ko.values)
+}
+
+gene_matrix %>%
+  view()
+```
+
