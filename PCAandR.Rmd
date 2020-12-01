@@ -18,7 +18,7 @@ library(ggthemes)
 library(tvthemes)
 ```
 
-First, let's make a matrix of fake genetic data.
+First, let's make a matrix of fake genetic data, that will behave like real genetic data.
 ```{r}
 gene_matrix <- matrix(nrow = 100, ncol = 10)
 
@@ -38,4 +38,17 @@ for (i in 1:100) {
 gene_matrix %>%
   view()
 ```
+
+Now let's run a Principal Component Analysis on our data! Use prcomp()
+This will draw a graph that shows how are samples are related to eachother.
+```{r}
+pca <- prcomp(t(gene_matrix), scale = TRUE) #prcomp() expcects rows to be samples, and columns to be genes.  We have the reverse situation, so use "t" to transpose.
+#prcomp() returns x, sdev, and rotation
+
+#x contains the principal components for drawing a graph.
+
+plot(pca$x[, 1], pca$x[, 2])
+
+```
+
 
